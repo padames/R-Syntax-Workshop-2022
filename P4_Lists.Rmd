@@ -24,20 +24,20 @@ knitr::opts_chunk$set(echo = FALSE)
 
 <!-- ======================== -->
 
-## What you will learn
+## 🟢 What you will learn
 
 <!-- ======================== -->
 
 By the end of this tutorial, you will know the basics of lists in R.
 We will cover the nature of lists, their core role in the R language, the syntax to construct them, how to modify them, and how to inspect them.
-You will reuse syntax from vectors and matrices that extend to lists.
-Specifically you will re-visit recycling, sub-setting using the the `[` syntax or using logical masks, and we will introduce a new operator to select or sub-set lists, the `[[` operator.
+You will reuse syntax from vectors and matrices that apply to lists.
+Specifically you will re-visit recycling, sub-setting using the the `[` index operator or using logical masks, and we will introduce a new way to select or sub-set lists, the `[[` index operator.
 
 Finally we will put in context the fact that a linear model is built upon a list in the R language.
 
 <!-- ======================== -->
 
-## About this tutorial
+## 🟢 About this tutorial
 
 <!-- ======================== -->
 
@@ -46,7 +46,7 @@ It contains explanations, fully functional code boxes, and quizzes that make it 
 When time allows during a guided session, the student can edit and execute code to test how the syntax works. 
 This provides invaluable hands-on feedback. 
 The instructor may also ask short questions regarding the material.
-Should you fall behind or need more time, please follow the exercises and test problems after the live session.
+Should you fall behind or need more time for the exercises and quizzes, please complete them after the live session.
 This is very important in order to cement the concepts and challenge your understanding.
 
 The emphasis of this tutorial is on why R works the way it does and less on being a reference manual or a source of recipes.
@@ -63,15 +63,14 @@ If you receive the source code and have RStudio, you can render it as a fully in
 Using an Rstudio (Posit) solution it can also be deployed on a ShinyR server.
 You can also do these things and much more if you move forward in your R journey.
 
-Finally, if you are following this material on a browser, every time you reopen this page the tutorial will be in the previous state you left it the last time you worked on it.
-If you want to reset your answers and the code you've run on the exercises, erasing all of your previous history, press the `Start Over` option at the bottom left on the main panel.
+Finally, if you are following this material in a browser, every time you reopen the tutorial, it will be in the same state you left it the last time you worked on it. That means the code you have run, the answers to the quizzes you have worked, and the sections you have visited will be remembered. If you want to reset this information, erasing all of your previous history, press the `Start Over` option at the bottom left on the main panel.
 
 Let's get started.
 
 
 <!-- ====================== -->
 
-## What are Lists?
+## ✅️ What are Lists?
 
 <!-- ====================== -->
 
@@ -79,7 +78,7 @@ Lists are one-dimensional vector objects that can store information of heterogen
 R's linear model object, with constructor `lm()`, is a list.
 Lists are very versatile and are at the center of R's model and data handling capabilities.
 
-## Constructing lists
+## ✅️ Constructing lists
 
 Here is a graphical representation of a list with three components.
 
@@ -91,9 +90,9 @@ And here is your turn to create it with R code using the constructor `list()`.
 Try to complete the exercise before looking at the hint.
 
 ```{r list-constructor, exercise=TRUE, exercise.lines=7}
-my_list <- list(some_strings = c("hello", "world"),
+(my_list <- list(some_strings = c("hello", "world"),
                 some_numbers = 10:15,
-                some_booleans = c(T,T,T,F))
+                some_booleans = c(T,T,T,F)))
 # check the names
 
 # extract the first element of the list
@@ -101,8 +100,11 @@ my_list <- list(some_strings = c("hello", "world"),
 ```
 
 ```{r list-constructor-hint}
+# first, check what attributes are present in the object
 attributes(my_list)
+# print the names given in the constructor via the named arguments
 names(my_list)
+# extract the first element of the list, note the double square brackets
 my_list[[1]]
 ```
 
@@ -110,7 +112,7 @@ Remember the case of the ingredients for a bakery from the module on vectors?
 Well now we can make a more elaborate comparison of the ingredients required weekly and annually using <span style="color:green">lists</span> and <span style="color:green">matrices</span>.
 
 
-## Using lists of vectors
+## ✅️ Using lists of vectors
 
 Let's carry on with the example of the materials for the bakery from the module on Vectors.
 We want to create a double entry table showing the materials on the vertical axis and the period of time for their estimated amounts: weekly and annual, on the vertical axis.
@@ -119,28 +121,25 @@ First we will create the table as a matrix, then we will name the rows and colum
 
 ```{r, lists-of-vectors-use, exercise=TRUE, exercise.lines=8}
 # weekly consumption of ingredients at a bakery
-weekly_values <- c(flour_kg = 12, eggs_units = 450, yeast_kg = 5, salt_kg = 0.350)
+(weekly_values <- c(flour_kg = 12, eggs_units = 450, yeast_kg = 5, salt_kg = 0.350))
 # estimate the annual consumption of each material given 52.18 weeks per year
-weekly_values * rep(52.18, 4)
-(m<-weekly_values %*% t(c(1, 52.18))) # matrix multiplication of two vectors
+weekly_values * rep(52.18, times=4)
+(m <- c(1, 52.18) %*% t(weekly_values)) # matrix multiplication of two vectors
 #help("matrix")
-dimnames(m) <- list(supplies=c(names(weekly_values)), frequency=c("weekly","annual"))
+dimnames(m) <- list(frequency=c("weekly","annual"), supplies=c(names(weekly_values)))
 m
 ```
 
 ```{r, explainingDimnamesFromListOfVectorsSetup}
 weekly_values <- c(flour_kg = 12, eggs_units = 450, yeast_kg = 5, salt_kg = 0.350)
-# estimate the annual consumption of each material given 52.18 weeks per year
-m<-weekly_values %*% t(c(1, 52.18)) # algebraic multiplication of two vectors
-#help("matrix")
-dimnames(m) <- list(supplies=c(names(weekly_values)), frequency=c("weekly","annual"))
+m <- c(1, 52.18) %*% t(weekly_values) # matrix multiplication of two vectors
+dimnames(m) <- list(frequency=c("weekly","annual"), supplies=c(names(weekly_values)))
 ```
 
 Let's verify the dimensions of the new matrix created by multiplying the two vectors using the matrix product function `%*%` instead of the element-wise product function `*`:
 
-$$ \begin{bmatrix} 12\\450\\5\\0.35\end{bmatrix}_{4\times1} \begin{bmatrix} 1& 52.18 \end{bmatrix}_{1\times2}=\begin{bmatrix} 12.00 & 626.160 \\ 450.00 & 23481.000 \\ 5.00 & 260.900 \\
-  0.35 & 18.263\end{bmatrix}_{4\times2}$$
-A regular R vector is the equivalent of a column vector, in this case the first vector, `weekly_values`, has dimension 4 rows by 1 column. The transpose of the second R vector, `t(c(1, 52.18))`, has dimension 1 row by 2 columns. The resulting matrix has dimensions 4 by 2 as expected. Let's verify with the `dim` function and look at the list of vectors used to label the dimensions, the rows and the columns of our matrix of baking supplies.
+$$ \begin{bmatrix} 1 \\ 52.18\end{bmatrix}_{2\times1} \begin{bmatrix} 12 & 450 & 5 & 0.35 \end{bmatrix}_{1\times4}=\begin{bmatrix} 12.00 & 450 & 5.0 & 0.350\\ 626.16 & 23481 & 260.9 & 18.263\end{bmatrix}_{2\times4}$$
+An R vector is a column vector, the vector made of the week multipliers, `c(1, 52.18)`, has implicit dimension of 2 rows by 1 column. The transpose of the second vector, `t( weekly_values)`, has dimension 1 row by 4 columns, one for each type of material used in the bakery. The resulting matrix has dimensions 2 by 4, as expected. Let's verify with the `dim` function and look at the list of vectors used to label the dimensions, the rows and the columns of our matrix of baking supplies.
 
 
 ```{r, explainingDimnamesFromListOfVectors, exercise=TRUE, exercise.setup="explainingDimnamesFromListOfVectorsSetup"}
@@ -150,7 +149,7 @@ dimnames(m)
 
 
 
-## Accessing the elements of a list {#accessing-the-elements-of-a-list}
+## ✅️ Accessing elements {#accessing-elements}
 
 Did you notice the use of double square brackets, `[[]]` to access the vectors stored in the list of the previous section?
 Had you chosen to use single brackets `[]` the result would have been a named list of one vector as its only element, try it now if you did not before:
@@ -162,9 +161,9 @@ my_list <- list(some_strings = c("hello", "world"),
 ```
 
 ```{r, subsetting-lists-single-bracket, exercise=TRUE, exercise.lines=7, exercise.setup="subsettingListsSingleBracketSetup"}
-my_list <- list(some_strings = c("hello", "world"),
+(my_list <- list(some_strings = c("hello", "world"),
           some_numbers = 10:15,
-          some_booleans = c(T,T,T,F))
+          some_booleans = c(T,T,T,F)))
 class(my_list[1])
 my_list[1]
 class(my_list[[1]])
@@ -174,59 +173,64 @@ my_list[[1]]
 The list class is kind of a super set of the vector class, thus R's coercion philosophy will be to coerce vectors into lists whenever confronted with the dilemma.
 In the following case, attempting to create a vector given a list and a vector, first coerces the vector into a list (a list is a more general concept than a vector) and then merges the two lists into a single one. The net effect is flattening the list.
 
-```{r, coercion-of-vector-to-list, exercise=TRUE, exercise.lines=5}
-new_object <- c(list(1,"a"), c(0,2,4))
-list(1,"a")
-c(0,2,4)
-new_object # is a flat list
-c(c(1,"a"), c(0,2,4)) # for comparison with a flat vector
+```{r, coercion-of-vector-to-list, exercise=TRUE}
+# the result of concatenating a list and a vector is a flat list
+c(list(one=1,a="a"), 
+  c(zero=0,two=2,four=4))
+# for comparison concatenating two vectors gives a flat vector
+c(c(one=1, a="a"), 
+  c(zero=0,two=2,four=4)) 
 ```
 
 In general, passing two or more lists as arguments to `c()` merges them all into a single list.
 
 <!-- =========================== -->
 
-## Appending a new element {#appending-a-new-element}
+## ✅️ Appending a new element {#appending-a-new-element}
 
 <!-- =========================== -->
 
 Appending a new element to a list can be done in two ways: creating a new longer list or increasing the length of the existing one, in place.   
+
+#### Creating a new longer list
 
 The former option uses the vector constructor `c()`, passing the new element wrapped by the list constructor, `list()`.
 This is useful to prevent the flattening of a vector into individual list elements when appended.
 This creates a new list leaving the original one unchanged.
 
 ```{r, new-element-appending-in-new-list, exercise=TRUE, exercise.lines=9, exercise.setup="subsettingListsSingleBracketSetup"}
-print(paste("length of original list =",length(my_list)))
+cat("length of original list =",length(my_list))
 # this creates a new list
 (new_list <- c(my_list, list(rep(-1,3))))
 # check the length of the original list
-print(paste("length of original list is still",length(my_list), "after appending to new list"))
+cat("length of original list is still",length(my_list), "after appending to new list")
 # check the length of the new list
-print(paste("length of new list =",length(new_list)))
+cat("length of new list =",length(new_list))
 # check that the last element is the vector we wanted to insert
 new_list[[length(new_list)]]
 ```
 
 <span style="color:blue">**Note:**</span> Remember that a subset of a vector is always a vector? Well it turns out that the same cannot be said of a heterogeneous data structure like a list. An example of this is in the last line of the previous code box: the last element of the list is a vector, the simplest data structure possible in R.
 
+#### Appending to an existing list
+
 The second method for appending to a list uses the `[[]]` operator.
 It allows insertion of new elements of any type into a list, that means no coercion will be used.
 Operator `[[]]` works for lists the same way as operator `[]` for vectors.
 
 ```{r, new-element-of-list-appending-in-place, exercise=TRUE, exercise.lines=7, exercise.setup="subsettingListsSingleBracketSetup"}
-print(paste("length of original list =",length(my_list)))
+cat("length of original list =",length(my_list))
 # this modifies in place
-my_list[[length(my_list) + 1]] <- rep(-1,3)
+my_list[[length(my_list) + 1]] <- rep(-1, times=3)
 # check the new length of the list
-print(paste("length of original list is now",length(my_list), "after appending in place"))
+cat("length of original list is now",length(my_list), "after appending in place")
 # check that the last element is the vector we wanted to insert
 my_list[[length(my_list)]]
 ```
 
 <!-- =============================== -->
 
-## Accessing nested lists
+## ✅️ Accessing nested lists
 
 <!-- =============================== -->
 
@@ -253,6 +257,7 @@ party_items = list( drinks = c("pop", "wine", "beer", "water"),
 ```
 
 ```{r list-nesting-hint}
+# extract the party items from the 'to_do_list' and display the drinks to buy
 to_do_list[[3]][[1]]
 # equivalent but using the dollar operator
 to_do_list[[3]]$drinks
@@ -265,12 +270,13 @@ to_do_list$items$drinks
 
 <!-- =============================== -->
 
-## Referencing elements by name
+## ✅️ Subsetting by name or position
 
 <!-- =============================== -->
 
 The `$` operator can be used to reference named elements of a list.
 
+#### Shallow subsetting 
 
 Single square brackets extract a list from position 2 of the `to_do_list` below. Double square brackets extract a vector of the elements of type logical stored in the list at that same position.
 
@@ -284,16 +290,32 @@ to_do_list <- list(guests = c("Uncle Bob", "Friendly neighbour", "Joe Best"),
 ```
 
 
-```{r, example-list-from-a-list, exercise=TRUE, exercise.lines=8, exercise.setup="setupListOfLists"}
+```{r, example-list-from-a-list, exercise=TRUE, exercise.setup="setupListOfLists"}
+# subsetting a list gives you another list (using the [] operator)
 # these two options are equivalent and return single element lists
-to_do_list[2]
-to_do_list["invited"]
-class(to_do_list[2])
-class(to_do_list["invited"])
-# compare to the class of the object returned by
-class(to_do_list[[2]])
-class(to_do_list$invited)
+c( class(to_do_list[1]), 
+   class(to_do_list[2]), 
+   class(to_do_list[3]) )
+c( class(to_do_list["guests"]), 
+   class(to_do_list["invited"]), 
+   class(to_do_list["items"]) )
 ```
+
+#### Deep subsetting
+
+In order to reference the contents of the element of a list the `[[]]` operator, or its equivalent, the `$` operator acting on named elements, return the contents of a single element of a list.
+The contents may be another list or a vector of a specific type --`character` or `logical`-- in the examples used here. The class of a list element, by contrast, is more opaque precisely because it can contain more than one data type due to being a heterogeneous data structure.  
+
+```{r, example-list-content-from-a-list, exercise=TRUE, exercise.setup="setupListOfLists"}
+# compare to the class of the object returned by the content of the element of the list
+c(class(to_do_list[[1]]), 
+  class(to_do_list[[2]]), 
+  class(to_do_list[[3]]))
+c(class(to_do_list$guests), 
+  class(to_do_list$invited), 
+  class(to_do_list$items))
+```
+
 
 ```{r listDollarSetup}
 party_items = list( drinks = c("pop", "wine", "beer", "water"),
@@ -316,16 +338,18 @@ to_buy$drinks
 
 <!-- =============================== -->
 
-## Conversion of lists to vectors {#conversion-of-lists-to-vectors}
+## ✅️ Conversion of lists to vectors {#conversion-of-lists-to-vectors}
 
 <!-- =============================== -->
 
 A list can be coerced into a vector using the `unlist()` function.
 It uses the same coercion rules that `c()` uses to create homogeneous types for each element.
 
-```{r, using-unlist-to-convert-list-to-vector, exercise=TRUE, exercise.lines=5}
-set.seed(6728)
-a_list <- list(labels=LETTERS[1:5], runs=1:5, outcomes=sample(1:10, size = 5))
+```{r, using-unlist-to-convert-list-to-vector, exercise=TRUE}
+set.seed(67284)
+outcomes <- round(runif(3),4)
+pass <- outcomes>0.75
+a_list <- list(labels=LETTERS[1:3], runs=1:3, outcomes=outcomes, pass=pass)
 str(a_list)
 vector_version <- unlist(a_list)
 str(vector_version)
@@ -333,7 +357,7 @@ str(vector_version)
 
 <!-- =============================== -->
 
-## Test your knowledge
+## 🛑 Test your knowledge
 
 <!-- =============================== -->
 
@@ -342,12 +366,12 @@ quiz(
   question_radio(
     "The subsetting operator [ always returns a list when applied to a list.",
     answer("True", correct = TRUE),
-    answer("False", correct = FALSE, message = "Well, maybe you were thinking of [[, that one gives you the actual elelment(s) of the list."),
+    answer("False", correct = FALSE, message = "Well, maybe you were thinking of [[, that one gives you the actual element(s) of the list."),
     random_answer_order = TRUE,
     allow_retry = TRUE,
     correct = "You are on a roll! This is an important characteristic of lists."
   ),
-  question_checkbox("Your rent went up by 3% this month. I know, this is a crazy neighbourhood.
+  question_checkbox("Your rent will go up by 3% this month. I know, this is a crazy neighbourhood.
 
           to_do <- list(errands = c(\"Doctor's appointment\",
                                     \"pick up milk\", \"Call dad\"),
@@ -400,7 +424,7 @@ quiz(
 ```
 
 
-## License
+## 📌 License
 
 <!-- =============================== -->
 
@@ -408,9 +432,16 @@ quiz(
 
 <!-- =============================== -->
 
-## Tutorials & online-resources
+## 📌 Tutorials & online-resources
 
 <!-- =============================== -->
+
+For this module on lists:
+
+1. https://masterr.org/r/RFP-part2-lists/ (to gain mastery)
+2. https://rstudio.github.io/r-manuals/r-intro/Lists-and-data-frames.html (good for an executive summary) 
+3. https://r-coder.com/list-r/ (excellent subsetting examples)
+
 
 General:
 
@@ -436,17 +467,20 @@ Computing:
 
   Statistics:
   
-  1. https://www.youtube.com/playlist?list=PLDcUM9US4XdMROZ57-OIRtIK0aOynbgZN (Statistical Rethinking playlist)
-  2. https://github.com/rmcelreath/stat_rethinking_2022 (Statistical Rethinking resources)
-  3. https://www.stat.berkeley.edu/~spector/s243/
+  1. https://cran.r-project.org/doc/contrib/Lemon-kickstart/ (very short but juicy)
+  2. https://www.youtube.com/playlist?list=PLDcUM9US4XdMROZ57-OIRtIK0aOynbgZN (Statistical Rethinking playlist)
+  3. https://keithmcnulty.github.io/siop-lec-workshop-2025/materials/talks/1-preliminaries.html#1 (Fundamentals of Regression Analysis applied to People Data in R)
+  4. https://github.com/rmcelreath/stat_rethinking_2022 (Statistical Rethinking resources)
+  5. https://www.stat.berkeley.edu/~spector/s243/
   
   Biology:
   
   1. https://www.bioconductor.org/ (packages for bio-statistics)
-  2. https://github.com/eacton/CAGEF (University of Toronto - Centre for the Analysis of Genome Evolution & Function)
-
+  2. https://a-little-book-of-r-for-bioinformatics.readthedocs.io/en/latest/index.html
+  3. https://github.com/eacton/CAGEF (University of Toronto - Centre for the Analysis of Genome Evolution & Function)
+  
   Language Reference:
   
   1. https://cran.r-project.org/doc/manuals/r-release/fullrefman.pdf (latest)  
 
-## References
+## 📌 References

@@ -22,7 +22,7 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 <!-- ======================== -->
-## What you will learn
+## 🟢 What you will learn
 <!-- ======================== -->
 
 By the end of this tutorial, you will know the basics of matrices and arrays in R. 
@@ -33,7 +33,7 @@ Specifically you will re-visit recycling, sub-setting using the `$` syntax, the 
 Finally you will learn what arrays are and the type of multi-dimensional data that most typically they are used to represent.
 
 <!-- ======================== -->
-## About this tutorial
+## 🟢 About this tutorial
 <!-- ======================== -->
 
 This introductory tutorial about the base R syntax can be used as a presentation by an instructor or as a self-study guide. 
@@ -41,7 +41,7 @@ It contains explanations, fully functional code boxes, and quizzes that make it 
 When time allows during a guided session, the student can edit and execute code to test how the syntax works. 
 This provides invaluable hands-on feedback. 
 The instructor may also ask short questions regarding the material.
-Should you fall behind or need more time, please follow the exercises and test problems after the live session.
+Should you fall behind or need more time for the exercises and quizzes, please complete them after the live session.
 This is very important in order to cement the concepts and challenge your understanding.
 
 The emphasis of this tutorial is on why R works the way it does and less on being a reference manual or a source of recipes. In doing so we hope to get you excited about this useful and expressive language. R was designed from the ground up to be vectorized and object oriented. Its aim is to be useful for both experts and beginners with the need to do computational statistics, data analysis and data visualization tasks.
@@ -51,7 +51,7 @@ Several sources describe the three types of R Syntax [@RSyntax-Cheatsheet], [@RS
 
 This tutorial was built entirely in R using a package called `learnr`. It was compiled to an html document using Rmarkdown syntax and the `Knitr` package. If you receive the source code and have RStudio, you can render it as a fully interactive web page. Using an Rstudio (Posit) solution it can also be deployed on a ShinyR server. You can also do these things and much more if you move forward in your R journey.
 
-Finally, if you are following this material on a browser, every time you reopen this page the tutorial will be in the previous state you left it the last time you worked on it. If you want to reset your answers and the code  you've run on the exercises, erasing all of your previous history, press the `Start Over` option at the bottom left on the main panel. 
+Finally, if you are following this material in a browser, every time you reopen the tutorial, it will be in the same state you left it the last time you worked on it. That means the code you have run, the answers to the quizzes you have worked, and the sections you have visited will be remembered. If you want to reset this information, erasing all of your previous history, press the `Start Over` option at the bottom left on the main panel.
 
 Let's get started.
 
@@ -59,12 +59,12 @@ Let's get started.
 
 
 
-## Constructing matrices
+## ✅️ Constructing matrices
 
 Matrices are the two-dimensional extensions of vectors. They must store elements of the same type, so coercion rules will apply if they do not meet this requirement.
 
 
-### An example
+### 🟢 An example
 
 A matrix of six integer values would be represented graphically as:
 
@@ -74,7 +74,7 @@ knitr::include_graphics("images/matrix.png", dpi = 106)
 ```
 
 And in code it would be constructed with:
-```{r matrix-construction, exercise=TRUE, exercise.lines=1}
+```{r matrix-construction, exercise=TRUE}
 matrix(c(5, -1, 3, 0, -4, 1), ncol = 3, nrow = 2, byrow = T)
 ```
 
@@ -82,7 +82,7 @@ matrix(c(5, -1, 3, 0, -4, 1), ncol = 3, nrow = 2, byrow = T)
 The function `matrix()` takes a vector with a variable number of arguments and a number of other parameters that inform the function how to construct the matrix from the vector. R by default populates the matrix _column-wise_, thus the argument `byrow = TRUE` effectively instructs it  to fill in the elements _row-wise_.
 
 
-## The details
+## ✅️ The details
 
 ```{r matrix-details, echo=FALSE, results='asis'}
 knitr::include_graphics("images/matrix_fill.png", dpi = 106)
@@ -90,73 +90,73 @@ knitr::include_graphics("images/matrix_fill.png", dpi = 106)
 
 
 
-## Matrix manipulation
+## ✅️ Matrix manipulation
+
+Matrices can be seen as a vertical stack of row vectors or a horizontal stack column vectors, from this perspective, _matrix subsetting_ is a direct extension of the same operation on vectors.
 
 Try to answer the questions with your code.
 
-```{r matrix-example, exercise = TRUE, exercise.lines=10}
-x <- matrix(c(5, -1, 3, 0, -4, 1), ncol = 3, nrow = 2, byrow = T)
+```{r matrix-example, exercise = TRUE}
+(x <- matrix(c(5, -1, 3, 0, -4, 1), ncol = 3, nrow = 2, byrow = T))
 # extract the element on the first row and third column of x
 
 # subtract the first element from the first row from the first element of the second row
 
 # find the dimensions of x
 
-# display the contents of x
-
 ```
 
 ```{r matrix-example-hint}
+# extract the element on the first row and third column of x
 x[1,3]
+# subtract the first element from the first row from the first element of the second row
 x[2,1] - x[1,1]
+# find the dimensions of x
 dim(x)
-x
 ```
 
-If the argument `T` had not been given to the named parameter `byrow` above, R would have constructed the matrix on a column first order. Verify this for yourself:
+If the named argument `byrow = T` were not there, R would have constructed the matrix on a column first order, this is a matrix default. Verify this for yourself:
 
-```{r matrix-example-bycolumn, exercise = TRUE, exercise.lines=9}
-y <- matrix(c(5, -1, 3, 0, -4, 1), ncol = 3, nrow = 2)
+```{r matrix-example-bycolumn, exercise = TRUE}
+(y <- matrix(c(5, -1, 3, 0, -4, 1), ncol = 3, nrow = 2))
 # extract the element on the first row and third column of x
 y[1,3]
 # subtract the first element from the first row from the first element of the second row
 y[2,1] - y[1,1]
 # find the dimensions of x
 dim(y)
-# output the contents of y
-
 ```
 
-As a task, find out how to name rows and columns in a matrix. There is an example in the module on lists in this same series of workshops.
+As a task, find out how to name the rows and columns in a matrix. There is an example in the module on lists in this same series of workshops (see **Using lists of vectors** in workshop Part 4: Lists).
 
-## Sub-setting a matrix
+## ✅️ Sub-setting a matrix
 
 A matrix can be subset via positions and via values, either using logical masks or column names. The same operator `[]` is used for both dimensions of the matrix, separated by a comma inside the brackets. Just like when sub-setting vectors, a matrix can de subset with vectors of positions to extract subsets by row(s) and column(s). For example, to subset the first row and the second column of a given matrix do as follows.
 
-```{r subsetting-matrix-rows, exercise=TRUE, exercise.lines=3}
-(m <- matrix(rep(c(rep(1:2,2), rep(3:4, 2)),2), byrow = T, nrow = 4))
+```{r subsetting-matrix-rows, exercise=TRUE}
+(m <- matrix(rep(c(rep(1:2,times=2), rep(3:4,times=2)),2), byrow = T, nrow = 4))
 m[1,]
 m[,2]
 ```
 ```{r, setup-subsetting-matrices}
-m <- matrix(rep(c(rep(1:2,2), rep(3:4, 2)),2), byrow = T, nrow = 4)
+m <- matrix(rep(c(rep(1:2, times=2), rep(3:4, times=2)),2), byrow = T, nrow = 4)
 ```
 
 Now extract a sub-matrix defined by the first two rows and the third and fourth columns of the original matrix:
 
-```{r, subsetting-matrix-from-within-matrix, exercise=TRUE, exercise.setup="setup-subsetting-matrices", exercise.lines=2}
+```{r, subsetting-matrix-from-within-matrix, exercise=TRUE, exercise.setup="setup-subsetting-matrices"}
 m[1:2, 3:4]
 ```
 
-## Useful matrix functions
+## ✅️ Useful matrix functions
 
 There are very useful functions to deal with matrices. Let's just mention a few here.
 
 ```{r sum-rows-cols-matrix, exercise=TRUE}
 (m <- matrix(c(5, -1, 3, 0, -4, 1), ncol = 3, nrow = 2, byrow = T))
-# add elements row-wise
+# add the elements of each row 
 rowSums(m)
-# add elements column-wise
+# add the elements of each column
 colSums(m)
 ```
 
@@ -172,46 +172,46 @@ Append a new row to the matrix at different positions.
 
 ```{r add-row-to-matrix, exercise=TRUE, exercise.setup="matrix-m"}
 m
-print("Append a  row with the number 6 to matrix 'm' from the previous exercise")
-rbind(m, rep(6, 3))
-print("append the new row at the top instead")
-rbind(rep(6, 3), m)
-print("insert a row in between first and second row")
-rbind(m[1,], rep(6,3), m[2,])
+print("Append a  row with the number 6 to matrix m with 'rbind(m, rep(6, times=3))'")
+rbind(m, rep(6, times=3))
+print("append the new row at the top instead with 'rbind(rep(6, times=3), m)'")
+rbind(rep(6, times=3), m)
+print("insert a row in between first and second row with 'rbind(m[1,], rep(6, times=3), m[2,])'")
+rbind(m[1,], rep(6, times=3), m[2,])
 ```
 Append a new column to the matrix at different positions.
 
 
 ```{r add-column-to-matrix, exercise=TRUE, exercise.setup="matrix-m"}
 m
-print("append a column with the number 6 to matrix 'm' from the previous exercise")
+print("append a column with the number 6 to matrix m with 'cbind(m, rep(6, 2))'")
 cbind(m, rep(6, 2))
-print("append the new column at the beginning instead")
+print("append the new column at the beginning instead with 'cbind(rep(6, 2), m)'")
 cbind(rep(6, 2), m)
-print("insert a column in between first and second columns")
+print("insert a column in between first and second columns with 'cbind(m[,1], rep(6,2), m[,2:3])'")
 cbind(m[,1], rep(6,2), m[,2:3])
 ```
 
 
-## Vector, mask or matrix
+## ✅️ Mask: Vector or Matrix?
 
 If you remember the rules of recycling and the fact that by default matrices are traversed element-wise along the columns from top to bottom, let's multiply a <span style="color:blue">matrix</span> by a <span style="color:blue">_vector_</span>.
 Have in mind that by default these operations are element-wise.
 How can you explain the result below?
 
 ```{r, multiply-matrix-times-vector, exercise=TRUE}
-# the following will make the pseudo random number generation produce the same result for reproducibility
+# the following will make the pseudo random number generation produce the same result every time for reproducibility
 set.seed(673912) # this is an arbitrary number, nothing special about it
-# sample 16 integers from 1 to 99
+# sample 16 integers with replacement from 1 to 99
 values <- sample.int(n = 99, size = 16, replace = TRUE)
 (m <- matrix(values, nrow = 4))
-print("a mask to nullify the 4th row of the matrix")
+print("a mask to nullify the 4th row of the matrix: '( zero.to.4th.row <- c(1,1,1,0) )'")
 ( zero.to.4th.row <- c(1,1,1,0) )
-print("The result after applying the mask")
+print("The result after applying the mask: 'm * zero.to.4th.row'")
 m * zero.to.4th.row
 ```
 
-## Recycling applied
+## 💚 Recycling applied ️
 
 The vector passed as second argument to the multiplication operator is used by R to create a matrix using the default column-wise order. Recycling kicks in because the vector is too short to fill up the matrix. 
 
@@ -223,7 +223,7 @@ knitr::include_graphics("images/matrix_multiplication.png", dpi = 86)
 
 
 <!-- ======================== -->
-## Time to practice
+## 🛑 Time to practice
 <!-- ======================== -->
 
 ```{r quiz-matrices, echo=FALSE, cache=FALSE}
@@ -267,7 +267,7 @@ quiz(
 ```
 
 
-## Arrays
+## ✅️ Arrays
 
 Arrays are the natural extension of vector and matrices to n-dimensions.
 
@@ -300,7 +300,7 @@ Let's build a $2\times2\times3$ array with random values between 0 and 64.
 
 
 
-```{r, 2by2by3array, exercise=TRUE, exercise.lines=4}
+```{r, 2by2by3array, exercise=TRUE}
 set.seed(673912)
 ( a <- array(sample.int(64,size = 12,replace = TRUE), 
              dim = c(2,2,3),
@@ -309,7 +309,7 @@ set.seed(673912)
 
 Now let's build a logical mask to nullify the second frame and apply it to the original array.
 
-```{r, logical-mask-for-an-array, exercise=TRUE, exercise.lines=5}
+```{r, logical-mask-for-an-array, exercise=TRUE}
 (mask <- array(rep(1,12), 
                dim = c(2,2,3),
                dimnames = list(c(),c(),c('red','green','blue'))))
@@ -332,12 +332,12 @@ mask[,,'green'] <- matrix(rep(0,4), ncol = 2)
 ```
 
 
-```{r, apply-mask-on-array, exercise=TRUE, exercise.lines=2, exercise.setup="setup-for-array-mask"}
+```{r, apply-mask-on-array, exercise=TRUE, exercise.setup="setup-for-array-mask"}
 a * mask
 ```
 
 
-## Date and Time
+## ✅️ Date and Time
 
 Let's take a side tour at this point in our R journey to explore the non-trivial task of modelling date and time.
 
@@ -351,7 +351,7 @@ The package `lubridate`, published in 2011 [@JSSv040i03] brought to R a consiste
 
 We will focus on base-R `as.date` and the `POSIXct` and `POSIXlt` classes.
 
-### Dates in base R
+### 🟢 Dates in base R
 
 To create a date without time one can use text and a format string using the following conventions.
 
@@ -366,7 +366,7 @@ To create a date without time one can use text and a format string using the fol
 <tr><td><tt>%Y</tt></td><td>Year (4 digit)</td></tr></table>
 </center>
 
-```{r, creating-simple-date-withot-time, exercise=TRUE, exercise.lines=5}
+```{r, creating-simple-date-withot-time, exercise=TRUE}
 # let's use the default format: 4-digit year, 2-digit month, 2-digit day, separated by either - or /
 c(as.Date("2021-2-16"),  as.Date('2021/02/17'))
 # Lets add formats: %d= Day as a decimal number; %
@@ -378,7 +378,7 @@ If you need to read a date written in a non-standard convention, the named param
 
 `Date` objects are stored as the number of days since January 1, 1970. There are functions to compute on dates, for instance to return the day of the week a certain date corresponds to. There are similarly functions to compute the month, day and the  quarter corresponding to a date.
 
-```{r, examples-compute-stuff-from-date, exercise=TRUE, exercise.lines=7}
+```{r, examples-compute-stuff-from-date, exercise=TRUE}
 famous_events <- c(Storming_of_the_Bastille=as.Date('14 July 1789', format="%d %B %Y"),
                    First_Canadian_Constitution_Act=as.Date('29th March 1867', format="%dth %B %Y"),
                    First_inauguration_of_Obama=as.Date('January 20, 2009', format='%B %d, %Y'))
@@ -388,7 +388,7 @@ quarters(famous_events)
 famous_events["Storming_of_the_Bastille"] > famous_events['First_Canadian_Constitution_Act']
 ```
 
-### More accurate time
+### 🟢 More accurate time
 
 If you need a representation of time to the nearest second then the POSIX date classes store times to the nearest second. There are two:
 
@@ -399,7 +399,7 @@ The usual choice is to use POSIXct unless you really need the list version.
 The creation of instances is done with the functions `as.POSIXct` and `as.POSIXlt`. 
 There is a standard format for the date and the time parts of the input, execute the code below to confirm this.
 
-```{r, create-dates-as-POSIX, exercise=TRUE, exercise.lines=3}
+```{r, create-dates-as-POSIX, exercise=TRUE}
 # for better results all dates should have date and time parts
 text_dates <- c('2021-02-16 16:00', '2021-02-16 16:45', '2021-02-16 17:00:01')
 as.POSIXct(text_dates)
@@ -425,14 +425,14 @@ To tell R the input is in non-standard form use the function `strptime` and the 
 <tr><td><tt>%z</tt></td><td>Offset from GMT</td><td><tt>%Z</tt></td><td>Time zone (character)</td></tr></tbody></table>
 </center>
 
-```{r, inputing-time-POSIX-non-standard-format, exercise=TRUE, exercise.lines=3}
+```{r, inputing-time-POSIX-non-standard-format, exercise=TRUE}
 (started_YYC = strptime('16/Feb/2021T16:01:00',format='%d/%b/%YT%H:%M:%S'))
 (started_LON = strptime('16/Feb/2021T16:01:00',format='%d/%b/%YT%H:%M:%S',tz = 'UTC'))
 started_LON - started_YYC
 ```
 
 <!-- ======================== -->
-## _Time_ to practice
+## 🛑 Time to practice
 <!-- ======================== -->
 
 ```{r quiz-date-time, echo=FALSE, cache=FALSE}
@@ -503,12 +503,17 @@ Is this a suitable selection for your data?",
 
 
 
-## License
+## 📌 License
 
 
 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
 
-## Tutorials &  online-resources
+## 📌 Tutorials &  online-resources
+
+  About matrices:
+  
+  1. https://www.datacamp.com/tutorial/matrices-in-r (easy to follow)
+  2. https://r-coder.com/matrix-operations-r/ (good examples)
 
   General:
   
@@ -534,17 +539,20 @@ Is this a suitable selection for your data?",
   
   Statistics:
   
-  1. https://www.youtube.com/playlist?list=PLDcUM9US4XdMROZ57-OIRtIK0aOynbgZN (Statistical Rethinking playlist)
-  2. https://github.com/rmcelreath/stat_rethinking_2022 (Statistical Rethinking resources)
-  3. https://www.stat.berkeley.edu/~spector/s243/
+  1. https://cran.r-project.org/doc/contrib/Lemon-kickstart/ (very short but juicy)
+  2. https://www.youtube.com/playlist?list=PLDcUM9US4XdMROZ57-OIRtIK0aOynbgZN (Statistical Rethinking playlist)
+  3. https://keithmcnulty.github.io/siop-lec-workshop-2025/materials/talks/1-preliminaries.html#1 (Fundamentals of Regression Analysis applied to People Data in R)
+  4. https://github.com/rmcelreath/stat_rethinking_2022 (Statistical Rethinking resources)
+  5. https://www.stat.berkeley.edu/~spector/s243/
   
   Biology:
   
   1. https://www.bioconductor.org/ (packages for bio-statistics)
-  2. https://github.com/eacton/CAGEF (University of Toronto - Centre for the Analysis of Genome Evolution & Function)
+  2. https://a-little-book-of-r-for-bioinformatics.readthedocs.io/en/latest/index.html
+  3. https://github.com/eacton/CAGEF (University of Toronto - Centre for the Analysis of Genome Evolution & Function)
 
   Language Reference:
   
   1. https://cran.r-project.org/doc/manuals/r-release/fullrefman.pdf (latest)  
 
-## References
+## 📌 References

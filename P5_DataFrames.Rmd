@@ -23,7 +23,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 <!-- ======================== -->
 
-## What you will learn
+## 🟢 What you will learn
 
 <!-- ======================== -->
 
@@ -37,7 +37,7 @@ Missing value types are also native to R so their occurrence can be an accurate 
 
 <!-- ======================== -->
 
-## About this tutorial
+## 🟢 About this tutorial
 
 <!-- ======================== -->
 
@@ -46,7 +46,7 @@ It contains explanations, fully functional code boxes, and quizzes that make it 
 When time allows during a guided session, the student can edit and execute code to test how the syntax works. 
 This provides invaluable hands-on feedback. 
 The instructor may also ask short questions regarding the material.
-Should you fall behind or need more time, please follow the exercises and test problems after the live session.
+Should you fall behind or need more time for the exercises and quizzes, please complete them after the live session.
 This is very important in order to cement the concepts and challenge your understanding.
 
 The emphasis of this tutorial is on why R works the way it does and less on being a reference manual or a source of recipes.
@@ -69,7 +69,7 @@ If you want to reset your answers and the code you've run on the exercises, eras
 Let's get started.
 
 
-## Data frames
+## ✅️ Data frames
 
 If you have followed the Part 4 Lists, of this tutorial, then this module should be relatively easy. Like a list, data frames store information of heterogeneous type, however there are some rules:
 
@@ -82,12 +82,17 @@ Follow these rules and data frames are an almost ideal data structure for data a
 
 Data frames are similar to tables of a sophisticated relational data base, where you can store procedures (like R expressions) and even other tables in the cells.
 
-## Why is a data frame different?
+## ✅️ Why is a data frame different?
 
-Under the hood a data frame is implemented as a list of vectors of the same length. The algorithms to search and select items in data frames can be optimized because its two more prominent features: table-like geometry and vector columns of equal length. The elements of a vector are stored in contiguous memory of constant size and this gives the data frame some advantages. They are natively implemented so the `$` and `[` syntax we have already covered can be safely reused for data frames.
+Under the hood a data frame is implemented as a list of vectors of the same length. The algorithms to search and select items in data frames can be optimized because its two more prominent features:
+
+ * table-like geometry
+ * vector columns of equal length. 
+ 
+The elements of a vector are stored in contiguous memory of constant size and this gives the data frame some advantages. The good news is data frames have been natively implemented to use the `$` and `[` operator syntax that we already know. This knowledge can be safely reused for data frames.
 
 
-## Constructing a data frame
+## ✅️ Constructing a data frame
 
 ```{r, data-frame, echo=FALSE, results='asis', dpi=70}
 knitr::include_graphics("images/dataframe1.png")
@@ -106,14 +111,12 @@ census2019 <- c(T,T,T,T,F,T)
 
 *Note:* In R the dot for names has no special meaning, it is like `_`. The dot syntax for formulas and in generic object dispatch has special meaning, but those are topics for more advanced material.
 
-If any of the vectors has a different length there will be error messages, R will not be happy about it. Try it for yourself in the previous exercise.
-
-In the above example the vector of country names, of type `character`, was converted to factors by a default named argument `stringsAsFactors = T` in the constructor `data.frame()`. A special note about this later in this module.
+If any of the vectors has a different length there will be error messages, R will not be happy about it. Try it for yourself in the previous code box.
 
 Try the `str()` function on the data frame we just created. R has a special vocabulary for the rows and columns of a data frame. Each of the <span style="color:blue">vectors</span> in the list are mapped to a <span style="color:blue">variable</span> while each <span style="color:red">row</span> represents an <span style="color:red">observation</span>.
 
 
-## Subsetting a data frame
+## ✅️ Subsetting a data frame
 
 Similarly to subsetting vectors, we can slice and extract sections of the data frame as we please following the row, column convention of matrices and the `[]` syntax or the `$` syntax of vectors and lists, respectively.
 
@@ -160,7 +163,7 @@ df[df$population > 80, 'country']
 df[df$population > 80,]
 ```
 
-This way of sub-setting a data frame uses a **_logical mask_**. The mask is nothing but a boolean vector generated using a logical operator. The boolean vector is then used to sub-setting another vector using the `[]` operator selecting the elements of the vector at the positions where the mask is `TRUE`. Since the columns of a data frame are vectors, this is a natural way of sub-setting. 
+This way of sub-setting a data frame uses a **_logical mask_**. The mask is nothing but a Boolean vector generated using a logical operator. The Boolean vector is then used to sub-set another vector using the `[]` operator selecting the elements of the vector at the positions where the mask is `TRUE`. Since the columns of a data frame are vectors, this is a natural way of sub-setting. 
 
 This image helps explain it.
 
@@ -208,7 +211,7 @@ result[c("country", "population")]
 ```
 
 
-## Reusing your knowledge of R Syntax
+## ✅️ Reusing your R Syntax
 
 At this point in your R Syntax journey you may start to appreciate that some patterns. Here is an image taken from @BaseR-Cheatsheet that might show some of these patterns.
 
@@ -218,9 +221,9 @@ At this point in your R Syntax journey you may start to appreciate that some pat
 
 As a very special case of a list, you would expect to be able to reuse some of your list manipulation knowledge, right? In a similar way, with the _table-like_ shape you would expect to be able to re-use some of your knowledge of `cbind` and `rbind`, correct?
 
-## The subsetting function
+## ✅️ The subsetting function
 
-The built-in function `subset` takes a data frame and returns a new object with the requested data frame. This function receives a logical vector as named argument `subset`, this vector signals with `TRUE` the elements that should be included and `FALSE` otherwise. Another optional parameter called `select` is a vector with the column positions or names to include by default, unless a third parameter called `drop` is set to TRUE, in which case the selected values are dropped from the resulting subset.
+The built-in function `subset` takes a data frame and returns a new object with the requested data frame. This function receives a logical vector as named argument `subset`, this vector marks with `TRUE` the elements that should be included and `FALSE` otherwise. Another optional parameter called `select` is a vector with the column positions or names to include by default, unless a third parameter called `drop` is set to TRUE, in which case the selected values are dropped from the resulting subset.
 
 As an example let's take the time series for quarterly earnings per share for Johnson and Johnson from 1960 to 1980, part of the `datasets` package included in modern default R installations. We are  asked to extract the years when the last quarter earnings were greater than 60% of the annual earning per share and show the last quarter and the total earnings.
 
@@ -293,61 +296,156 @@ subset(J_and_J, subset = mask.Q4.GT.60.pct.Total, select = c("Qtr4","Annual"))
 
 That was a company on a roll in the 70's!
 
-**Note:** this function is one of the few that exposes a behaviour called non-standard evaluation in R. That means that when setting the arguments on a call to the function, the argument can be interpreted as a character string first even if it exists as a variable name. They are very convenient in interactive work at the command line (the REPL, [Read-evaluate-print-loop](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop), as it is known). The best practice is not to use `subset` in programs. The packages derived from the seminal work of Wickham [@tidy-data] provide consistent syntax to do these and many more operations on data.
+Please note that you could replace the convenient function `subset` for plain vanilla base R Syntax, the same one you have been studying in this tutorial. Below the code. It is nothing more than a mask for the rows that we are interested in and a vector of column names to "select" in the output. This is an example of subsetting a data frame at its best.
 
-
-## Subsetting and transforming
-
-A very common operation on data frames is to aggregate the values in one or more columns of observations that belong to the same category. The nature of the aggregation can be an operation like counting, adding, or by extension, applying any function that takes a value and returns it in a transformed state.
-
-First create a data frame with some results from a fictional experiment that was done by triplicate.
-Notice a convenient use or R's vector recycling property to make the code expressive.
-
-```{r, aggregating-examples, exercise=TRUE, exercise.lines=7}
-set.seed(5529)
-treatment <- LETTERS[sample(x = 1:26, size = 2)] # vector to be recycled by data frame
-results <- round(runif(12), digits = 2)
-passes.GT.0.7 <- results>0.7
-(experiments <- data.frame(treatment=treatment, 
-                 val_1=results,
-                 passes=passes.GT.0.7))
+```{r, base-R-Syntax-to-replace-subset-function-in-scripts, exercise=TRUE, exercise.setup="JAndJDataSetupWithTotals"}
+J_and_J[mask.Q4.GT.60.pct.Total, c("Qtr4", "Annual")]
 ```
 
-Then subset by treatment while adding `Val_1` and counting the number of observations that pass our test (are greater than `0.7` by the definition of column `passes`).
+
+**Note:** the `subset` function exposes a behaviour called "non-standard evaluation" in R. That means that when setting the arguments on a call to the function, the argument can be interpreted as a character string first even if it exists as a variable name. They are very convenient in interactive work at the command line (also called the REPL, [Read-evaluate-print-loop](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop), as it is known). The best practice is not to use `subset` in programs. Use either base R subsetting syntax or the **tidy** packages derived from the work of Hadley Wickham [@tidy-data].
+
+
+
+
+## ✅️ Subsetting and transforming
+
+A very common operation on data frames is to aggregate the values in one or more columns of observations that belong to the same category. 
+The nature of the aggregation can be an operation like counting, adding, or by extension, applying any function that takes a value and returns it in a transformed state.
+
+In the following example we will walk through an application of this pattern to answer the question of how many of the treatments in a controlled experiment resulted in a minimum passing threshold value and what was their mean result. 
+
+First create a data frame with some results from a fictional clinical trial for two treatments and a control. If the result blood marker is above 42.5 µg/L, the treatment is considered successful.
+First create the synthetic experimental result data.
+
+```{r aggregating-examples, message=TRUE, warning=FALSE, exercise=TRUE}
+set.seed(5529L)
+(treatment_names <- LETTERS[sample(x = 1:26, size = 3, replace = FALSE)])
+library(sn) # skewed normal distribution
+n1=330; n2=281; n3=410 # the number of test cases for each of the three treatments
+# generate synthetic data for each treatment
+params.1 <- cp2dp(c(50, 10, -0.5), "SN")
+treatment.1 <- abs(rsn(n1, dp = params.1))
+params.2 <- abs(cp2dp(c(60, 30, -0.25), "SN"))
+treatment.2 <- rsn(n2, dp = params.2)
+# This would be the control
+treatment.3 <- round(runif(n3)*50, digits = 2)
+```
 
 ```{r, aggregationExamplesSetup}
-set.seed(5529)
-treatment <- LETTERS[sample(x = 1:26, size = 2)] # vector to be recycled by data frame
-results <- round(runif(12), digits = 2)
-passes.GT.0.7 <- results>0.7
-experiments <- data.frame(treatment=treatment, 
-                 val_1=results,
-                 passes=passes.GT.0.7)
+set.seed(5529L)
+treatment_names <- LETTERS[sample(x = 1:26, size = 3, replace = FALSE)] # vector to be recycled by data frame
+library(sn)
+n1=330; n2=281; n3=410 # the number of test cases for each of the three treatments
+# generate synthetic data for each treatment
+params.1 <- cp2dp(c(50, 10, -0.5), "SN")
+treatment.1 <- abs(rsn(n1, dp = params.1))
+params.2 <- cp2dp(c(60, 30, -0.25), "SN")
+treatment.2 <- abs(rsn(n2, dp = params.2))
+treatment.3 <- round(runif(n3)*50, digits = 2)
+results <- c(treatment.1,treatment.2,treatment.3)
+# the treatment code for the results vector are their names attribute
+names(results) <- c(rep(treatment_names[1],n1), rep(treatment_names[2],n2), rep(treatment_names[3],n3))
+# Criteria for success
+passes_GT_42.5 <- results > 42.5 
+# we are ready to build the data frame
+experiments <- data.frame(treatment = names(results), 
+                 outcome=results,
+                 passes = passes_GT_42.5)
+#randomize the representation of the experiments
+(experiments <- experiments[sample(nrow(experiments), replace = FALSE), ])
+(outcome_mean_by_treatment <- aggregate(x = experiments$outcome,
+                                        by = list(experiments$treatment),
+                                        FUN = "mean"))
+# the calculate the number of results that pass the clinical criteria
+(num_successful_cases_by_treatment <- aggregate(x = experiments$passes,
+                                                by = list(experiments$treatment),
+                                                FUN = "sum"))
+(treatment_counts <- aggregate(x = experiments$treatment,
+                               by = list(experiments$treatment),
+                               FUN = "length"))
 ```
 
-```{r, aggregation-example-adding, exercise=TRUE, exercise.lines=12, exercise.setup="aggregationExamplesSetup"}
-# first calculate the mean of val_1 by treatment
-(val_1_by_treatment <- aggregate(x = experiments$val_1,
-                                 by = list(experiments$treatment), 
-                                 FUN = "mean"))
-# the calculate the number of results that are greater than 0.7
-(num_gt_point_seven_by_treatment <- aggregate(x = experiments$passes, 
-                                     by = list(experiments$treatment), 
-                                     FUN = "sum"))
+Now we can assemble the data frame with the results, the treatment code, and the criteria for success.
+
+```{r, aggregate-example-the-data-frame, exercise=TRUE, exercise.setup="aggregationExamplesSetup"}
+results <- c(treatment.1,treatment.2,treatment.3)
+# the treatment code for the results vector are their names attribute
+names(results) <- c(rep(treatment_names[1],n1), rep(treatment_names[2],n2), rep(treatment_names[3],n3))
+# Criteria for success
+passes_GT_42.5 <- results > 42.5 
+# we are ready to build the data frame
+experiments <- data.frame(treatment = names(results), 
+                 outcome=results,
+                 passes = passes_GT_42.5)
+#randomize the representation of the experiments
+(experiments <- experiments[sample(nrow(experiments), replace = FALSE), ])
+```
+
+Then we will answer the two questions separately.
+First by calculating the mean of the results per treatment in a new data frame called `outcome_mean_by_treatment`.
+Then by counting the number of cases that pass our criteria (greater than `42.5`µg/L by the value of the column `passes`) in the data frame `num_successful_cases_by_treatment`.
+
+
+```{r, aggregation-example-adding, exercise=TRUE, exercise.setup="aggregationExamplesSetup"}
+# first calculate the mean outcome for each treatment
+(outcome_mean_by_treatment <- aggregate(x = experiments$outcome,
+                                   by = list(experiments$treatment),
+                                   FUN = "mean"))
+# then calculate the number of results that pass the criteria for success
+(num_successful_cases_by_treatment <- aggregate(x = experiments$passes,
+                                                by = list(experiments$treatment),
+                                                FUN = "sum"))
+(treatment_counts <- aggregate(x = experiments$treatment,
+                               by = list(experiments$treatment),
+                               FUN = "length"))
+```
+The function `aggregate` gives default names to the columns of the resulting data frame: `Group.1` and `x`.
+There are at least two ways of generating a single data frame from these two partial results.
+First we will use `cbind` to append the column of results from the second data frame, called `x`, to the first data frame.
+
+
+```{r, final-cbind, exercise=TRUE, exercise.setup="aggregationExamplesSetup"}
 # now put them together in a single data frame
-aggregated_df <- cbind(val_1_by_treatment, num_gt_point_seven_by_treatment$x)
-names(aggregated_df) <- c("treatment", "mean_val_1", "num_gt_0_pt_7")
+aggregated_df <- cbind(outcome_mean_by_treatment,
+                       num_successful_cases_by_treatment$x,
+                       treatment_counts$x) 
+names(aggregated_df) <- c("treatment", "mean","# of pass", "# total")
 aggregated_df
 ```
 
+A second, arguably more elegant solution is to apply the R built-in function `merge` to join the two partial results for mean outcome and number of outcomes greater than 42.5 µg/L.
+An important requisite to merge two data frames is that they share a column with the same identifier. 
+In our case that column is `Group.1`, created by the function `aggregate` in the previous step.
 
-## Factors or strings
+```{r, merge, exercise=TRUE, exercise.setup="aggregationExamplesSetup"}
+results_df <- merge( x = outcome_mean_by_treatment, 
+                     y = num_successful_cases_by_treatment,
+                     by = "Group.1", 
+                     all = TRUE)
+results_df <- merge( x =results_df,
+                     y= treatment_counts,
+                     by = "Group.1",
+                     all = TRUE)
+names(results_df) = c("treatment", "mean","# of pass", "# total")
+results_df
+```
 
-Did you notice that in the previous section we got the countries as a vector of factors with 6 levels? Remember that special case of vectors called factors specialized on manipulating categorical variables? Well here we go again. 
+When this function is called with the argument `all = TRUE`, this is equivalent to a SQL query for a full `JOIN` function between two tables. 
+
+Technicalities aside, can you spot the control group from the last table and the knowledge of the way the synthetic data was created?
+You will have to investigate what the `runif` function does. 
+Apparently the two treatments have means well above the control group. 
+More analysis is needed to answer this with more statistical certainty. 
+
+
+## ✅️ Factors or strings
+
+It used to be that R converted strings to factors unless told otherwise, so the countries defined in the previous section would have been defined as a vector of factors with 6 levels instead of a vector of six character strings representing country names. 
 
 When you construct a data frame from vectors the type of each vector will be interpreted by the data frame constructor. R will coerce the elements of the vector to the most general data type to be able to work with them. An ordering of types from more  general to more specific is `character` > `complex` > `double` > `integer` > `logical`. 
 
-You can give R hints, though, for instance you can tell it to interpret the strings in vectors as factors or not, base R will do so by default.
+You can give R hints, though, for instance you can tell it to interpret the strings in vectors as factors, base R recently stopped doing so by default.
 
 ```{r example-data-frame-strings-as-factors, exercise=TRUE, exercise.lines=7}
 country <- c("Canada", "EEUU", "United Kingdom", "Germany", "Italy", "Poland")
@@ -358,7 +456,7 @@ country_stats <- data.frame( country,
 # the function 'str()' shows us the structure of the object
 str(country_stats)
 ```
-The R constructor for data frames interpreted the strings as 6 factors. Perhaps not what you expected, compare with this case.
+The R constructor for data frames used to interpret the strings as factors by default, perhaps not what one would expect, this is the reason this behaviour was recently modified so factors have to be explicitly requested while processing character vectors for a data frame constructor. 
 
 ```{r exampleDataFrameStringsAsIsSetup}
 country <- c("Canada", "EEUU", "United Kingdom", "Germany", "Italy", "Poland")
@@ -367,11 +465,11 @@ population <- c(37, 331, 67, 83, 60, 39)
 
 
 ```{r example-data-frame-strings-as-is, exercise=TRUE, exercise.lines=2, exercise.setup="exampleDataFrameStringsAsIsSetup"}
-country_stats <- data.frame( country, population, stringsAsFactors = FALSE)
+country_stats <- data.frame( country, population)
 str(country_stats)
 ```
 
-## NAs in a data frame
+## ✅️ NAs in a data frame
 
 Because each row on a data frame is associated with an experimental observation of some sort, sometimes an observation may genuinely have missing entries for some of the variables that were simply not measured or are not available in the data set. The function `is.na()` can be used on the whole data frame to return a data frame of logical vectors with `TRUE`  if an `NA` exists at that position or `FALSE` otherwise. The function `complete.cases()` identifies the observations without missing values. 
 
@@ -412,7 +510,7 @@ experiments[!(missing_values | infinites),]
 ```
 
 
-## Test your knowledge
+## 🛑 Test your knowledge
 
 ```{r quiz-data-frames, echo=FALSE, cache=FALSE}
 quiz(
@@ -488,12 +586,20 @@ The 'runif' functions computes n random values from a uniformly distributed vari
 
 
 
-## License
+## 📌 License
 
 
 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
 
-## Tutorials &  online-resources
+## 📌 Tutorials &  online-resources
+
+  About data frames:
+  
+  1. https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/data.frame (written like a Unix manual page)
+  2. https://r-coder.com/dataframe-r/ (easy to follow)
+  3. https://www.programiz.com/r/dataframe (short and simple examples)
+  4. https://statisticsglobe.com/data-frame-r (Joachim is on a mission to teach R to the world, practical examples)
+  5. https://rowannicholls.github.io/R/intro/data_frames.html (very comprehensive and well written code, recommended study)
 
   General:
   
@@ -510,8 +616,8 @@ The 'runif' functions computes n random values from a uniformly distributed vari
   
   1. http://adv-r.had.co.nz/ (Free access to Advanced R book by Wickham himself)
   2. https://cran.r-project.org/doc/manuals/r-release/R-exts.pdf (writing R packages)
-  2. https://cran.r-project.org/doc/manuals/r-release/R-ints.html (low level language details)
-  3. https://www.stat.berkeley.edu/~s133/ [@UBerkeleyS133.ConceptsComputeWithData]
+  3. https://cran.r-project.org/doc/manuals/r-release/R-ints.html (low level language details)
+  4. https://www.stat.berkeley.edu/~s133/ [@UBerkeleyS133.ConceptsComputeWithData]
   
   Data cleaning:
   
@@ -519,18 +625,21 @@ The 'runif' functions computes n random values from a uniformly distributed vari
   
   Statistics:
   
-  1. https://www.youtube.com/playlist?list=PLDcUM9US4XdMROZ57-OIRtIK0aOynbgZN (Statistical Rethinking playlist)
-  2. https://github.com/rmcelreath/stat_rethinking_2022 (Statistical Rethinking resources)
-  3. https://www.stat.berkeley.edu/~spector/s243/
+  1. https://cran.r-project.org/doc/contrib/Lemon-kickstart/ (very short but juicy)
+  2. https://www.youtube.com/playlist?list=PLDcUM9US4XdMROZ57-OIRtIK0aOynbgZN (Statistical Rethinking playlist)
+  3. https://keithmcnulty.github.io/siop-lec-workshop-2025/materials/talks/1-preliminaries.html#1 (Fundamentals of Regression Analysis applied to People Data in R)
+  4. https://github.com/rmcelreath/stat_rethinking_2022 (Statistical Rethinking resources)
+  5. https://www.stat.berkeley.edu/~spector/s243/
   
   Biology:
   
   1. https://www.bioconductor.org/ (packages for bio-statistics)
-  2. https://github.com/eacton/CAGEF (University of Toronto - Centre for the Analysis of Genome Evolution & Function)
+  2. https://a-little-book-of-r-for-bioinformatics.readthedocs.io/en/latest/index.html
+  3. https://github.com/eacton/CAGEF (University of Toronto - Centre for the Analysis of Genome Evolution & Function)AGEF (University of Toronto - Centre for the Analysis of Genome Evolution & Function)
 
   Language Reference:
   
   1. https://cran.r-project.org/doc/manuals/r-release/fullrefman.pdf (latest)  
 
-## References
+## 📌 References
 

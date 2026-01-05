@@ -23,7 +23,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 <!-- ======================== -->
 
-## What you will learn
+## 🟢 What you will learn
 
 <!-- ======================== -->
 
@@ -36,7 +36,7 @@ In this module you will learn how to write functions, how to control the flow of
 
 <!-- ======================== -->
 
-## About this tutorial
+## 🟢 About this tutorial
 
 <!-- ======================== -->
 
@@ -45,7 +45,7 @@ It contains explanations, fully functional code boxes, and quizzes that make it 
 When time allows during a guided session, the student can edit and execute code to test how the syntax works. 
 This provides invaluable hands-on feedback. 
 The instructor may also ask short questions regarding the material.
-Should you fall behind or need more time, please follow the exercises and test problems after the live session.
+Should you fall behind or need more time for the exercises and quizzes, please complete them after the live session.
 This is very important in order to cement the concepts and challenge your understanding.
 
 The emphasis of this tutorial is on why R works the way it does and less on being a reference manual or a source of recipes.
@@ -69,7 +69,7 @@ Let's get started.
 
 
 
-## User functions
+## ✅️ User functions
 
 If you start writing a lot of R code, sooner or later you will find the need to reuse the same functionality over and over. Functions help you package that functionality in a single scope and reuse it in a convenient form.
 
@@ -98,39 +98,52 @@ add2numbers <- function(a, b) {
 An R user-defined function is called exactly the way you would call a built-in function.
 
 
-```{r, calling-a-user-defined-funciton, exercise=TRUE, exercise.lines=4}
+```{r, calling-a-user-defined-funciton, exercise=TRUE}
 subract2numbers <- function(a, b) {
   return(a - b)
 }
+
 (result <- subract2numbers(5, 4))
 ```
 
 The value returned by a function is the one defined by the last expression within the function body. The `return` is not necessary.
 
-```{r, calling-a-user-defined-funciton-simple, exercise=TRUE, exercise.lines=4}
+```{r, calling-a-user-defined-funciton-simple, exercise=TRUE}
 add_2_numbers <- function(a, b) {
   a + b
 }
+
 (result_2 <- add_2_numbers(5, 4))
 ```
 
 <!-- **Note: ** A user-defined function that modifies an object creates a copy of  it  before affecting it. If the object was passed from the environment where the function was created then it will maintain all references to it unchanged but it will be a copy in memory nonetheless. Only primitive functions modify objects without making copies. That is why to make the fastest possible user-defined R function try to reuse as many primitive functions as you can to write its functionality. -->
 
 
-## Named parameters
+## ✅️ Named parameters
 
-Just like with built-ins you can name parameters. You can also use default values.
+Just like with built-ins you can name parameters. 
+You can also use default values.
+In the following example we will create a function to add two vectors using the default R base built-in function `sum` to illustrate this pattern.
+Our initial version will accept two positional arguments, expecting to process two vectors and using recycling if necessary.
 
-```{r, named-parameters-in-user-defined-functions, exercise=TRUE, exercise.lines=9}
+
+```{r, named-parameters-in-user-defined-functions, exercise=TRUE}
 add_2_vectors <- function(x, y) {
   sum(x, y)
 }
+
 # now use the function
 set.seed(1234)
-(a <- sample(c(1:100), size = 10, replace = T))
-(b <- c(sample(c(1:100), 4, T), NA, c(sample(c(1:100), 5, T))))
+
+(a <- sample(1:100, size = 10, replace = T))
+
+(b <- c(sample(1:10, size = 4, replace = T), 
+        NA, 
+        sample(1:100, size = 5, replace = T)))
+
 add_2_vectors(x = a,
               y = b)
+
 ```
 We might want to fix this hiccup by adding a default parameter to indicate that if `NA`s are found they can be safely ignored.
 
@@ -140,16 +153,17 @@ a <- sample(c(1:100), size = 10, replace = T)
 b <- c(sample(c(1:100), 4, T), NA, c(sample(c(1:100), 5, T)))
 ```
 
-```{r, named-parameters-in-user-defined-functions-NAs-addressed, exercise=TRUE, exercise.lines=4, exercise.setup="namedParametersInUserDefinedFunctionsNAsAddressedSetup"}
-add_2_vectors <- function(x, y, remove.na = TRUE) {
+```{r, named-parameters-in-user-defined-functions-NAs-addressed, exercise=TRUE, exercise.setup="namedParametersInUserDefinedFunctionsNAsAddressedSetup"}
+add_2_vectors_better <- function(x, y, remove.na = TRUE) {
   sum(x, y, na.rm = remove.na)
 }
-add_2_vectors(x = a, y = b)
+
+add_2_vectors_better(x = a, y = b)
 ```
 
 Most R functions have parameters to ignore the presence of missing values when processing the input.
 
-## Control of execution
+## ✅️ Control of execution
 
 For a program or a function to do interesting calculations it is necessary to operate repetitively over data structures like vectors and lists to generate new values or a single one representing the desired target.
 
@@ -179,7 +193,7 @@ for (variable in sequence) {
 }
 ```
 
-## The functional style
+## ✅️ The functional style
 
 The functional forms of these structures can be formulated depending on the object that the user-function is applied to. For a vector the applications are straight forward.
 
@@ -187,44 +201,61 @@ The functional and procedural styles of writing programs are  equivalent, howeve
 
 Let's have a look at concrete examples.
 
-## Iterating  over a vector
-
-
- First illustrate the  `sapply` function to square all the elements of a numeric vector.
-
-```{r, sapply-example-on-vector, exercise=TRUE, exercise.lines=4}
-set.seed(456)
-(v <- sample(1:10, 5))
-# now iterate over the vector applying your operation to square each element
-(squares2 <- sapply(v, function(a) {a*a}))
-```
+## ✅️ Iterating  over a vector
 
 ```{r, sapplyVsForLoopComparisonSetup}
 set.seed(456)
-(v <- sample(1:10, 5))
+(values <- sample(1:10, 5))
 ```
 
-Now use the for-loop to achieve the same transformation.
+Let's create a vector of 5 reproducible random values between one and 10.
+
+```{r, sapply-example-on-vector, exercise=TRUE}
+set.seed(456)
+
+(values <- sample(1:10, 5))
+```
+
+Now transform the values into their squares using the functional style built-in function `sapply`, for simple apply.
+
+
+```{r, functional-style, exercise=TRUE, exercise.setup="sapplyVsForLoopComparisonSetup"}
+# now iterate over the vector applying your operation to square each element
+(squares2 <- sapply(X = values, # input list
+                    FUN = function(a) { a * a })) # function to apply to each member 
+```
+
+We could have written that call in one line. 
+Functional style tends to be declarative.
+You instruct R what to do instead of how to do it.
+
+
+Now use the procedural style, using a for-loop to achieve the same transformation.
 
 ```{r, for-loop-example-on-vector, exercise=TRUE, exercise.setup="sapplyVsForLoopComparisonSetup"}
-square_vals <- rep(0, length(v))
-i = 1
-for (a in v) {
-  square_vals[i] = a*a
-  i = i + 1
+square_vals <- rep(0, length(values)) # pre-allocate space for speed
+
+i = 1 # start counter
+# start iteration
+for (a in values) {
+  square_vals[i] = a*a # allocate values
+  i = i + 1 # increase counter
 }
+
 # display the answer
 square_vals
 ```
 
-Notice the preallocation of space for the vector in the first line. 
+Notice the pre-allocation of space for the vector in the first line. 
+
+<!-- The procedural style can be more verbose because it gives step by step instructions. -->
 
 
-## Conditionally walking over a vector
+## ✅️ Conditionally walking a vector
 
 In functional style this is done via sub-setting. In procedural style  a combination of a for-loop and the conditional-statements with if-else can achieve the same result. Let us have a look at the air fare to sun destinations at or below $1200, first using functional style.
 
-```{r, conditionally-removing-with-filter, exercise=TRUE, exercise.lines=2}
+```{r, conditionally-removing-with-filter, exercise=TRUE}
 air_fares <- c(Habana=1200, Cancun=1150, Los_cabos=960, Costa_Rica=1250)
 (results <- air_fares[air_fares <= 1200])
 ```
@@ -235,7 +266,7 @@ air_fares <- c(Habana=1200, Cancun=1150, Los_cabos=960, Costa_Rica=1250)
 ```
 
 
-```{r, conditionally-removing-with-for-loop-and-if-statement, exercise=TRUE, exercise.lines=9, exercise.setup="conditionallyRemovingWithForLoopAndIfStatementSetup"}
+```{r, conditionally-removing-with-for-loop-and-if-statement, exercise=TRUE, exercise.setup="conditionallyRemovingWithForLoopAndIfStatementSetup"}
 results <- c()
 if (length(air_fares) > 0) {
   n <- length(air_fares)
@@ -252,12 +283,20 @@ Now you choose your style according to the task at hand. Practice will make you 
 
 
 
-## License
+## 📌 License
 
 
 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
 
-## Tutorials &  online-resources
+## 📌 Tutorials &  online-resources
+
+  About functions in R:
+  
+  1. https://www.datacamp.com/tutorial/functions-in-r-a-tutorial (Easy to follow)
+  2. https://rstudio.github.io/r-manuals/r-intro/Writing-your-own-functions.html 
+  3. https://masterr.org/r/RFP-part7-functions00/ (Functions, variables bindings and environments)
+  4. https://masterr.org/r/RFP-part8-functions01/ and https://masterr.org/r/understand-r-environments-part2/ (environments)
+  5. https://masterr.org/r/RFP-part8-functions01/ (Short blog post, but a chain of posts follow to explain more complex concepts)
 
   General:
   
@@ -283,18 +322,21 @@ Now you choose your style according to the task at hand. Practice will make you 
   
   Statistics:
   
-  1. https://www.youtube.com/playlist?list=PLDcUM9US4XdMROZ57-OIRtIK0aOynbgZN (Statistical Rethinking playlist)
-  2. https://github.com/rmcelreath/stat_rethinking_2022 (Statistical Rethinking resources)
-  3. https://www.stat.berkeley.edu/~spector/s243/
+  1. https://cran.r-project.org/doc/contrib/Lemon-kickstart/ (very short but juicy)
+  2. https://www.youtube.com/playlist?list=PLDcUM9US4XdMROZ57-OIRtIK0aOynbgZN (Statistical Rethinking playlist)
+  3. https://keithmcnulty.github.io/siop-lec-workshop-2025/materials/talks/1-preliminaries.html#1 (Fundamentals of Regression Analysis applied to People Data in R)
+  4. https://github.com/rmcelreath/stat_rethinking_2022 (Statistical Rethinking resources)
+  5. https://www.stat.berkeley.edu/~spector/s243/
   
   Biology:
   
   1. https://www.bioconductor.org/ (packages for bio-statistics)
-  2. https://github.com/eacton/CAGEF (University of Toronto - Centre for the Analysis of Genome Evolution & Function)
+  2. https://a-little-book-of-r-for-bioinformatics.readthedocs.io/en/latest/index.html
+  3. https://github.com/eacton/CAGEF (University of Toronto - Centre for the Analysis of Genome Evolution & Function)
 
   Language Reference:
   
   1. https://cran.r-project.org/doc/manuals/r-release/fullrefman.pdf (latest)  
 
-## References
+## 📌 References
 
