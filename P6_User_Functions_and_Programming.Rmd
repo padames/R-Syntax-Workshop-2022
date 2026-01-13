@@ -281,6 +281,67 @@ results
 
 Now you choose your style according to the task at hand. Practice will make you a master!
 
+## ✅️ Vectorization
+
+Let's use R to print the upper-case letters in the old ASCII table and their decimal code-point values.
+Text representation is a complex subject but imagine we want to check what numeric values are associated with the characters of the letters of the English alphabet. Remember when we used relational operators to compare text in Part 1 of this workshop?
+
+Start by converting the UTF8 symbols of the English alphabet into their decimal code point values. 
+There is a builtin function for this.
+
+```{r, apropos-example-utf8-to-int, exercise=TRUE}
+apropos("utf8")
+```
+
+Reading the help for the function `utf8ToInt` we see that it takes a vector of characters and it returns a vector of its decimal code point values.
+
+```{r, details-of-target-function, exercise=TRUE}
+help("utf8ToInt")
+```
+
+Now we can put together a vector of the code-point values for each character in the builtin vector of the letters of the English alphabet represented in the base R package as the variable LETTERS.  
+
+```{r, setup-letter-values}
+LETTER_VALUES <- utf8ToInt(paste(LETTERS, collapse=""))
+key_vals <- paste(LETTERS, LETTER_VALUES, sep=": ")
+```
+
+
+
+```{r values-vectorized-version, echo=TRUE, exercise=TRUE, exercise.setup="setup-letter-values"}
+# use a vectorized function that takes all the letters and returns the numeric values
+(LETTER_VALUES <- utf8ToInt(paste(LETTERS, collapse="")))
+```
+
+```{r, key-values-vectorized, exercise.setup="setup-letter-values", exercise=TRUE}
+# use another vectorized expression that creates the key: value pairs: 'A: 65 B: 66 ... Z: 90
+(key_vals <- paste(LETTERS, LETTER_VALUES, sep=": "))
+```
+
+Now we can build the desired output with the key-values:
+
+```{r, final-letter-key-value-output, exercise.setup="setup-letter-values", exercise=TRUE}
+# now print it one term per line
+cat(key_vals, sep="\n")
+```
+
+
+Now package this vectorized functionality into a function to print any UTF8 character with its code point in decimal number.
+
+```{r package-function-key-value-utf8, echo=TRUE, exercise=TRUE,}
+utf8_key_val_print <- function(utf8_vector=LETTERS) {
+  # use a vectorized function that takes all the letters and returns the numeric values
+  UTF8_VALUES <- utf8ToInt(paste(utf8_vector, collapse=""))
+  # use another vectorized expression that creates the key: value pairs: 'A: 65 B: 66 ... Z: 90
+  key_vals <- paste(UTF8_VALUES, utf8_vector, sep=": ")
+  # now print it one term per line
+  cat(key_vals, sep="\n")
+}
+
+utf8_key_val_print(letters)
+```
+
+Final comment on vectorization. We have avoided using the builtin functions apply. Usually R code will be much faster if you use intrinsically vectorized functions because they are written in C++ and avoid using external R for loops or function calls. We could have used `spapply(LETTERS, utf8ToInt)` to create the vector of code point values. On a small vector the difference is not noticeable, however for large data sets the difference may be important.  
 
 
 ## 📌 License

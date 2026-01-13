@@ -77,7 +77,7 @@ plot(x, y,
 grid()
 
 # Add a horizontal line at y = 0
-abline(h = 0, col = "gray", lty = 2)
+abline(h = 0, col = "red", lty = 2)
 ```
 
 The `plot()` function is highly customizable. Try changing:
@@ -104,10 +104,10 @@ curve(x^2 - 4*x + 3,
       las = 1)
 
 grid()
-abline(h = 0, col = "gray", lty = 2)
+abline(h = 0, col = "red", lty = 2)
 
 # Add the vertex point
-abline(v = 2, col = "red", lty = 3)  # vertical line at x = 2
+abline(v = 2, col = "red", lty = 2)  # vertical line at x = 2
 points(2, -1, col = "red", pch = 19, cex = 1.5)
 text(2, -1, "  Vertex (2, -1)", pos = 4, col = "red")
 ```
