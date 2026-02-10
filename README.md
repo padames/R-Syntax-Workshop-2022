@@ -12,3 +12,6 @@ So far 4 iterations of these workshops have given feedback to  present a more mo
 
 The latest workshop is scheduled for two sessions: one on Monday, Aug 27
 covering parts 1, 2 and 3. The second is on Tuesday, Aug 29, covering Part 5.
+
+Better maintained as CalgaryR setting the url to HTPPS and using tokens as
+passwords. The tokens have to be generated from the CagaryR account on GitHub.
