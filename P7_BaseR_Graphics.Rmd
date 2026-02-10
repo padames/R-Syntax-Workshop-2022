@@ -1,6 +1,6 @@
 ---
 title: "Introduction to R Syntax 2020"
-pagetitle: "Base R Graphics"
+pagetitle: "Part 7: Base R Graphics"
 output:
   learnr::tutorial:
     theme: spacelab
