@@ -335,3 +335,71 @@ These tools form the foundation of exploratory data analysis in R. As you contin
 - Annotation functions: `abline()`, `points()`, `text()`, `legend()`, `grid()`
 
 Keep experimenting with these functions and explore the R documentation (`?plot`, `?hist`, etc.) to discover more customization options!
+
+
+## 📌 License
+
+
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+
+## 📌 Tutorials &  online-resources
+
+  Graphs in R:
+  
+  1. https://r-graphics.org/  (online book)
+  2. https://r-charts.com/ (base-R and ggplot2)
+  3. https://r-graph-gallery.com/ (400 examples, 50 chart types)
+  4. https://github.com/iamericfletcher/awesome-r-learning-resources (The Viz section)
+  5. https://www.data-to-viz.com/ (beautiful hierarchical presentation)
+
+  About functions in R:
+  
+  1. https://www.datacamp.com/tutorial/functions-in-r-a-tutorial (Easy to follow)
+  2. https://rstudio.github.io/r-manuals/r-intro/Writing-your-own-functions.html 
+  3. https://masterr.org/r/RFP-part7-functions00/ (Functions, variables bindings and environments)
+  4. https://masterr.org/r/RFP-part8-functions01/ and https://masterr.org/r/understand-r-environments-part2/ (environments)
+  5. https://masterr.org/r/RFP-part8-functions01/ (Short blog post, but a chain of posts follow to explain more complex concepts)
+
+  General:
+  
+  1. https://cran.r-project.org/manuals.html (all of them)
+  2. https://github.com/iamericfletcher/awesome-r-learning-resources 
+  3. https://statisticsglobe.com/r-programming-language [@StatisticsGlobe]
+  4. https://datacarpentry.org/R-ecology-lesson/01-intro-to-r.html [@TheCarpentries.org.home]
+  5. https://cran.r-project.org/doc/manuals/r-release/R-intro.html (Introduction)
+  6. https://posit.cloud/learn/recipes (simple but useful)
+  7. https://www.burns-stat.com/pages/Tutor/R_inferno.pdf [@TheRInferno] (no sugar coating)
+  8. https://www.w3schools.in/r-programming
+  
+  <!-- 6. http://courtneybrown.com/YouTube/R_Tutorial_Videos.html (time-proven simple explanations) -->
+  
+  Computing: 
+  
+  1. http://adv-r.had.co.nz/ (Free access to Advanced R book by Wickham himself)
+  2. https://cran.r-project.org/doc/manuals/r-release/R-exts.pdf (writing R packages)
+  2. https://cran.r-project.org/doc/manuals/r-release/R-ints.html (low level language details)
+  3. https://www.stat.berkeley.edu/~s133/ [@UBerkeleyS133.ConceptsComputeWithData]
+  
+  Data cleaning:
+  
+  1. https://cran.r-project.org/doc/contrib/de_Jonge+van_der_Loo-Introduction_to_data_cleaning_with_R.pdf
+  
+  Statistics:
+  
+  1. https://cran.r-project.org/doc/contrib/Lemon-kickstart/ (very short but juicy)
+  2. https://www.youtube.com/playlist?list=PLDcUM9US4XdMROZ57-OIRtIK0aOynbgZN (Statistical Rethinking playlist)
+  3. https://keithmcnulty.github.io/siop-lec-workshop-2025/materials/talks/1-preliminaries.html#1 (Fundamentals of Regression Analysis applied to People Data in R)
+  4. https://github.com/rmcelreath/stat_rethinking_2022 (Statistical Rethinking resources)
+  5. https://www.stat.berkeley.edu/~spector/s243/
+  
+  Biology:
+  
+  1. https://www.bioconductor.org/ (packages for bio-statistics)
+  2. https://a-little-book-of-r-for-bioinformatics.readthedocs.io/en/latest/index.html
+  3. https://github.com/eacton/CAGEF (University of Toronto - Centre for the Analysis of Genome Evolution & Function)
+
+  Language Reference:
+  
+  1. https://cran.r-project.org/doc/manuals/r-release/fullrefman.pdf (latest)  
+
+## 📌 References
