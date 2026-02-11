@@ -12,6 +12,7 @@ output:
     toc_depth: 2
     code_folding: hide
 runtime: shiny_prerendered
+bibliography: bib.bib
 description: "Introduction to base R graphics capabilities"
 ---
 
@@ -27,7 +28,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 By the end of this tutorial, you will understand the basic graphics capabilities in base R. You will learn how to create line plots of mathematical functions, histograms of simulated data, and diagnostic plots to assess normality of distributions. These fundamental plotting skills form the foundation for data visualization in R and will help you explore and communicate your data effectively.
 
-Base R graphics are powerful, fast, and require no additional packages. While packages like ggplot2 offer advanced features, base R graphics provide an excellent starting point and remain widely used for quick exploratory analysis and publication-quality figures.
+Base R graphics are powerful, fast, and require no additional packages [@idiotsGuideGraphicsBaseR]. While packages like ggplot2 offer advanced features [@r-graphicsChang], base R graphics provide an excellent starting point and remain widely used for quick exploratory analysis and publication-quality figures.
 
 
 <!-- ======================== -->
@@ -351,6 +352,7 @@ Keep experimenting with these functions and explore the R documentation (`?plot`
   3. https://r-graph-gallery.com/ (400 examples, 50 chart types)
   4. https://github.com/iamericfletcher/awesome-r-learning-resources (The Viz section)
   5. https://www.data-to-viz.com/ (beautiful hierarchical presentation)
+  6. https://rstudio-pubs-static.s3.amazonaws.com/7953_4e3efd5b9415444ca065b1167862c349.html (bare bones)
 
   About functions in R:
   
@@ -364,11 +366,11 @@ Keep experimenting with these functions and explore the R documentation (`?plot`
   
   1. https://cran.r-project.org/manuals.html (all of them)
   2. https://github.com/iamericfletcher/awesome-r-learning-resources 
-  3. https://statisticsglobe.com/r-programming-language [@StatisticsGlobe]
-  4. https://datacarpentry.org/R-ecology-lesson/01-intro-to-r.html [@TheCarpentries.org.home]
+  3. https://statisticsglobe.com/r-programming-language 
+  4. https://datacarpentry.org/R-ecology-lesson/01-intro-to-r.html
   5. https://cran.r-project.org/doc/manuals/r-release/R-intro.html (Introduction)
   6. https://posit.cloud/learn/recipes (simple but useful)
-  7. https://www.burns-stat.com/pages/Tutor/R_inferno.pdf [@TheRInferno] (no sugar coating)
+  7. https://www.burns-stat.com/pages/Tutor/R_inferno.pdf (no sugar coating)
   8. https://www.w3schools.in/r-programming
   
   <!-- 6. http://courtneybrown.com/YouTube/R_Tutorial_Videos.html (time-proven simple explanations) -->
@@ -378,7 +380,7 @@ Keep experimenting with these functions and explore the R documentation (`?plot`
   1. http://adv-r.had.co.nz/ (Free access to Advanced R book by Wickham himself)
   2. https://cran.r-project.org/doc/manuals/r-release/R-exts.pdf (writing R packages)
   2. https://cran.r-project.org/doc/manuals/r-release/R-ints.html (low level language details)
-  3. https://www.stat.berkeley.edu/~s133/ [@UBerkeleyS133.ConceptsComputeWithData]
+  3. https://www.stat.berkeley.edu/~s133/
   
   Data cleaning:
   

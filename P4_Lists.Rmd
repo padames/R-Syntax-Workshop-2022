@@ -455,6 +455,14 @@ General:
 
 <!-- 6. http://courtneybrown.com/YouTube/R_Tutorial_Videos.html (time-proven simple explanations) -->
 
+Graphs in R:
+  
+1. <https://r-graphics.org/>  (online book)
+2. <https://r-charts.com/> (base-R and ggplot2)
+3. <https://r-graph-gallery.com/> (400 examples, 50 chart types)
+4. <https://github.com/iamericfletcher/awesome-r-learning-resources> (The Viz section)
+5. <https://www.data-to-viz.com/> (beautiful hierarchical presentation)
+
 Computing:
 
 1.  <http://adv-r.had.co.nz/> (Free access to Advanced R book by Wickham himself)
