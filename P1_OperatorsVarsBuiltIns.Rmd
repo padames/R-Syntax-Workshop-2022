@@ -726,6 +726,14 @@ all.equal(sum_calc, sum_expected)
   2. https://cran.r-project.org/doc/manuals/r-release/R-ints.html (low level language details)
   3. https://www.stat.berkeley.edu/~s133/ [@UBerkeleyS133.ConceptsComputeWithData]
   
+  Graphs in R:
+  
+  1. https://r-graphics.org/  (online book)
+  2. https://r-charts.com/ (base-R and ggplot2)
+  3. https://r-graph-gallery.com/ (400 examples, 50 chart types)
+  4. https://github.com/iamericfletcher/awesome-r-learning-resources (The Viz section)
+  5. https://www.data-to-viz.com/ (beautiful hierarchical presentation)
+
   <!-- Data cleaning: -->
 
   <!-- 1. https://cran.r-project.org/doc/contrib/de_Jonge+van_der_Loo-Introduction_to_data_cleaning_with_R.pdf -->
