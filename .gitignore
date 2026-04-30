@@ -53,3 +53,4 @@ vignettes/*.pdf
 *.out
 *.pdf
 *.gz
+.positai
