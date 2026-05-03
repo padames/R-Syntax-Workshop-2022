@@ -26,9 +26,28 @@ knitr::opts_chunk$set(echo = FALSE)
 ## 🟢 What you will learn
 <!-- ======================== -->
 
-By the end of this tutorial, you will understand the basic graphics capabilities in base R. You will learn how to create line plots of mathematical functions, histograms of simulated data, and diagnostic plots to assess normality of distributions. These fundamental plotting skills form the foundation for data visualization in R and will help you explore and communicate your data effectively.
+Welcome to Part 7 of the Introduction to R Workshop.
+If you have worked your way through the previous
+modules, by now you are missing one of the best and most exciting
+aspects of the R language.
+We will dedicate this tutorial to exploring this powerful feature
+for exploring, communicating and explaining data and mathematics 
+in general.
 
-Base R graphics are powerful, fast, and require no additional packages [@idiotsGuideGraphicsBaseR]. While packages like ggplot2 offer advanced features [@r-graphicsChang], base R graphics provide an excellent starting point and remain widely used for quick exploratory analysis and publication-quality figures.
+By the end of this tutorial, you will understand the basic graphics capabilities in base R.
+You will learn how to create line plots of mathematical functions,
+histograms of simulated data, and diagnostic plots to assess
+normality of distributions. 
+These fundamental plotting skills form the foundation for data
+visualization in R and will help you explore and communicate your
+data effectively.
+
+Base R graphics are powerful, fast, and require no additional
+packages [@idiotsGuideGraphicsBaseR]. 
+While packages like ggplot2 offer advanced features
+[@r-graphicsChang], base R graphics provide an excellent starting
+point and remain widely used for quick exploratory analysis and
+publication-quality figures.
 
 
 <!-- ======================== -->
@@ -306,7 +325,9 @@ qqline(skewed_data,
 # indicating non-normality
 ```
 
-### Multi-Panel Diagnostic Plot
+<!-- ======================== -->
+## ✅️ Multi-Panel Diagnostic Plot
+<!-- ======================== -->
 
 Let's create a comprehensive 2x2 panel showing multiple diagnostic plots:
 
@@ -378,7 +399,13 @@ Congratulations! You've learned the basics of base R graphics:
 
 These tools form the foundation of exploratory data analysis in R. As you continue your R journey, you can explore more advanced graphics with packages like ggplot2, but base R graphics will always be valuable for quick visualizations and understanding your data.
 
-### Key Functions Covered
+<!-- ======================== -->
+## 🟢 Key Functions Covered
+<!-- ======================== -->
+
+Here is a quick inventory of the builtin functions we used in 
+this section of the Introduction to R workshop. 
+All these functions are from the rich Base R package. 
 
 - `plot()` - create scatter plots and line plots
 - `curve()` - plot mathematical functions
