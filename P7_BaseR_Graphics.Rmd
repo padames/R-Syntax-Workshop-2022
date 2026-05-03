@@ -198,6 +198,58 @@ legend("topright",
 
 
 <!-- ======================== -->
+## ✅️ Plot types
+<!-- ======================== -->
+
+From module 1 in this workshop series you may remember how 
+to summon documentation for the function `plot`. 
+It turns out `plot` is a generic function that dispatches
+calls to specific functions depending on the type of the
+objects passed as main argument, `x`.
+
+When the funcion gets called with two R numeric vectors,
+`plot.default` is used.
+Observe that the output of `help(plot)` list the "generic"
+`plot` from the package base and the default scatterplot
+function from the package graphics.
+
+```{r help-plot, exercise=TRUE, exercise.lines=2}
+help(plot)
+#help(plot.default) # this is the function for scatter plots
+```
+
+The following is an example taken from the documentation
+of the `plot` function used for scatter plots. 
+You can get it straight from the R system by uncommenting the
+second line above and scrolling down to the examples
+section.
+
+The code iterates over the character vector on line 4 
+representing all the possible types of x-y plots possible
+in this library.
+
+```{r plot-types, exercise=TRUE}
+x <- 0:15
+y <- sin(pi/5 * x)
+op <- par(mfrow = c(3,3), mar = .1+ c(2,2,3,1))
+for (tp in c("p","l","b",  "c","o","h",  "s","S","n")) {
+   plot(y ~ x, type = tp, main = paste0("plot(*, type = \"", tp, "\")"))
+   if(tp == "S") {
+      lines(x, y, type = "s", col = "red", lty = 2)
+      mtext("lines(*, type = \"s\", ...)", col = "red", cex = 0.8)
+   }
+}
+dev.off() # restore the layout to defaults
+```
+
+The built-in function `par` deserves a full explanation on
+its own merit. 
+Basically it defines the layout and other properties of the
+graphic device.
+
+
+
+<!-- ======================== -->
 ## ✅️ Assessing Normality
 <!-- ======================== -->
 
