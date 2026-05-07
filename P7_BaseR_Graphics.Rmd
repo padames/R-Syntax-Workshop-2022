@@ -34,20 +34,19 @@ We will dedicate this tutorial to exploring this powerful feature
 for exploring, communicating and explaining data and mathematics 
 in general.
 
-By the end of this tutorial, you will understand the basic graphics capabilities in base R.
-You will learn how to create line plots of mathematical functions,
-histograms of simulated data, and diagnostic plots to assess
-normality of distributions. 
-These fundamental plotting skills form the foundation for data
-visualization in R and will help you explore and communicate your
-data effectively.
-
 Base R graphics are powerful, fast, and require no additional
 packages [@idiotsGuideGraphicsBaseR]. 
 While packages like ggplot2 offer advanced features
 [@r-graphicsChang], base R graphics provide an excellent starting
 point and remain widely used for quick exploratory analysis and
 publication-quality figures.
+
+By the end of this tutorial, you will understand the basic graphics 
+capabilities in base R. You will learn how to create line plots of 
+mathematical functions, histograms of simulated data, and diagnostic 
+plots to assess normality of distributions. These fundamental plotting 
+skills form the foundation for data visualization in R and will 
+help you explore and communicate your data effectively.
 
 
 <!-- ======================== -->

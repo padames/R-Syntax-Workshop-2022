@@ -2,8 +2,12 @@
 local({
 
   # the requested version of renv
+<<<<<<< HEAD
   version <- "1.2.2"
   attr(version, "md5") <- "bb69b6403b1bad0442657e9e8e57cc83"
+=======
+  version <- "1.1.5"
+>>>>>>> 6865661c576e777447b65b9d77bc0d38a1daabaf
   attr(version, "sha") <- NULL
 
   # the project directory
@@ -169,6 +173,7 @@ local({
     if (quiet)
       return(invisible())
   
+<<<<<<< HEAD
     # also check for config environment variables that should suppress messages
     # https://github.com/rstudio/renv/issues/2214
     enabled <- Sys.getenv("RENV_CONFIG_STARTUP_QUIET", unset = NA)
@@ -179,6 +184,8 @@ local({
     if (!is.na(enabled) && tolower(enabled) %in% c("false", "0"))
       return(invisible())
   
+=======
+>>>>>>> 6865661c576e777447b65b9d77bc0d38a1daabaf
     msg <- sprintf(fmt, ...)
     cat(msg, file = stdout(), sep = if (appendLF) "\n" else "")
   
@@ -226,6 +233,7 @@ local({
     section <- header(sprintf("Bootstrapping renv %s", friendly))
     catf(section)
   
+<<<<<<< HEAD
     # ensure the target library path exists; required for file.copy(..., recursive = TRUE)
     dir.create(library, showWarnings = FALSE, recursive = TRUE)
   
@@ -240,6 +248,8 @@ local({
       }
     }
   
+=======
+>>>>>>> 6865661c576e777447b65b9d77bc0d38a1daabaf
     # attempt to download renv
     catf("- Downloading renv ... ", appendLF = FALSE)
     withCallingHandlers(
@@ -265,6 +275,10 @@ local({
   
     # add empty line to break up bootstrapping from normal output
     catf("")
+<<<<<<< HEAD
+=======
+  
+>>>>>>> 6865661c576e777447b65b9d77bc0d38a1daabaf
     return(invisible())
   }
   
@@ -281,6 +295,7 @@ local({
     repos <- Sys.getenv("RENV_CONFIG_REPOS_OVERRIDE", unset = NA)
     if (!is.na(repos)) {
   
+<<<<<<< HEAD
       # split on ';' if present
       parts <- strsplit(repos, ";", fixed = TRUE)[[1L]]
   
@@ -295,6 +310,14 @@ local({
         names(vals) <- "CRAN"
   
       return(vals)
+=======
+      # check for RSPM; if set, use a fallback repository for renv
+      rspm <- Sys.getenv("RSPM", unset = NA)
+      if (identical(rspm, repos))
+        repos <- c(RSPM = rspm, CRAN = cran)
+  
+      return(repos)
+>>>>>>> 6865661c576e777447b65b9d77bc0d38a1daabaf
   
     }
   
@@ -543,6 +566,7 @@ local({
   
   }
   
+<<<<<<< HEAD
   renv_bootstrap_find <- function(version) {
   
     path <- renv_bootstrap_find_cache(version)
@@ -588,6 +612,8 @@ local({
   
   }
   
+=======
+>>>>>>> 6865661c576e777447b65b9d77bc0d38a1daabaf
   renv_bootstrap_download_tarball <- function(version) {
   
     # if the user has provided the path to a tarball via
@@ -1056,7 +1082,11 @@ local({
   
   renv_bootstrap_validate_version_release <- function(version, description) {
     expected <- description[["Version"]]
+<<<<<<< HEAD
     is.character(expected) && identical(c(expected), c(version))
+=======
+    is.character(expected) && identical(expected, version)
+>>>>>>> 6865661c576e777447b65b9d77bc0d38a1daabaf
   }
   
   renv_bootstrap_hash_text <- function(text) {
@@ -1235,6 +1265,7 @@ local({
   }
   
   renv_bootstrap_run <- function(project, libpath, version) {
+<<<<<<< HEAD
     tryCatch(
       renv_bootstrap_run_impl(project, libpath, version),
       error = function(e) {
@@ -1250,6 +1281,8 @@ local({
   }
   
   renv_bootstrap_run_impl <- function(project, libpath, version) {
+=======
+>>>>>>> 6865661c576e777447b65b9d77bc0d38a1daabaf
   
     # perform bootstrap
     bootstrap(version, libpath)
@@ -1273,6 +1306,7 @@ local({
   
   }
   
+<<<<<<< HEAD
   renv_bootstrap_cache_version <- function() {
     # NOTE: users should normally not override the cache version;
     # this is provided just to make testing easier
@@ -1285,6 +1319,8 @@ local({
     paste("v", number - 1L, sep = "")
   }
   
+=======
+>>>>>>> 6865661c576e777447b65b9d77bc0d38a1daabaf
   renv_json_read <- function(file = NULL, text = NULL) {
   
     jlerr <- NULL
