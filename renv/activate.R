@@ -3,7 +3,7 @@ local({
 
   # the requested version of renv
   version <- "1.2.2"
-  attr(version, "md5") <- "bb69b6403b1bad0442657e9e8e57cc83"
+  attr(version, "md5") <- ..md5..
   attr(version, "sha") <- NULL
 
   # the project directory
@@ -265,7 +265,6 @@ local({
   
     # add empty line to break up bootstrapping from normal output
     catf("")
-
     return(invisible())
   }
   
@@ -296,7 +295,6 @@ local({
         names(vals) <- "CRAN"
   
       return(vals)
-
   
     }
   
@@ -1058,9 +1056,7 @@ local({
   
   renv_bootstrap_validate_version_release <- function(version, description) {
     expected <- description[["Version"]]
-
     is.character(expected) && identical(c(expected), c(version))
-
   }
   
   renv_bootstrap_hash_text <- function(text) {
@@ -1239,7 +1235,6 @@ local({
   }
   
   renv_bootstrap_run <- function(project, libpath, version) {
-
     tryCatch(
       renv_bootstrap_run_impl(project, libpath, version),
       error = function(e) {
@@ -1255,7 +1250,6 @@ local({
   }
   
   renv_bootstrap_run_impl <- function(project, libpath, version) {
-
   
     # perform bootstrap
     bootstrap(version, libpath)
@@ -1278,7 +1272,7 @@ local({
     warning(paste(msg, collapse = "\n"), call. = FALSE)
   
   }
-
+  
   renv_bootstrap_cache_version <- function() {
     # NOTE: users should normally not override the cache version;
     # this is provided just to make testing easier
