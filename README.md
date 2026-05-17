@@ -1,3 +1,6 @@
+---
+output: html_document
+---
 # R-Workshop Intro To R Syntax
 
 ## Source Code
@@ -37,3 +40,18 @@ The reusability of the patterns is emphasized to minimize cognitive load and to 
 This source code repo is better maintained as CalgaryR by cloning the URL in HTTPS format. 
 Then use tokens as passwords for git authentication.
 The tokens are generated from the CagaryR account on GitHub.
+
+## Deployment
+
+You can download/clone this repo and run each part from source directly on your computer as described in the first paragraph above. 
+Alternatively you can visit the live tutorials deployed to ShinyApps.io until migrated to the new Posit cloud.
+
+  * https://padames-shiny.shinyapps.io/P1_OperatorsVarsBuiltIns/
+  * https://padames-shiny.shinyapps.io/P2_Vectors_in_R/
+  * https://padames-shiny.shinyapps.io/P3_Matrices_Arrays/
+  * https://padames-shiny.shinyapps.io/P4_Lists/
+  * https://padames-shiny.shinyapps.io/P5_DataFrames/
+  * https://padames-shiny.shinyapps.io/P6_User_Functions_and_Programming/
+  * https://padames-shiny.shinyapps.io/P7_BaseR_Graphics/
+  
+
